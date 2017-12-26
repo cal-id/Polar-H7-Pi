@@ -1,4 +1,5 @@
 import gatt
+import time
 import mac
 from UUIDmappings import ser_to_name, char_to_name
 
@@ -13,6 +14,9 @@ class AnyDevice(gatt.Device):
     _UUID_CHARACTER_FIRMWARE_VER = '00002a26-0000-1000-8000-00805f9b34fb'
     _UUID_CHARACTER_BAT_LVL = '00002a19-0000-1000-8000-00805f9b34fb'
     _UUID_CHARACTER_HR_MEASURE = '00002a37-0000-1000-8000-00805f9b34fb'
+
+    buff = []
+    BUFF_SIZE = 300
 
     def print_out_services(self):
         """Walks through all self.servies printing out the uuids and their
@@ -55,10 +59,18 @@ class AnyDevice(gatt.Device):
         elif characteristic.uuid == self._UUID_CHARACTER_HR_MEASURE:
             # TODO: There is much more information. See example code.
             print("HR Rec:", value[1])
+            self.register(value[1])
         else:
             print("Unrecognised value:", value, "from:", characteristic.uuid,
                   char_to_name.get(characteristic.uuid[4:8],
                                    "Char name unrecognised."))
+
+    def register(self, val):
+        self.buff.append(str(val) + ", " + time.strftime("%H_%M_%S"))
+        if len(self.buff) > self.BUFF_SIZE:
+            with open(time.strftime("%H_%M_%S") + ".csv", "w") as fh:
+                fh.write("\n".join(self.buff))
+            self.buff = []
 
 
 device = AnyDevice(mac_address=mac.address, manager=manager)
