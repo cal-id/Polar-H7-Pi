@@ -1,5 +1,5 @@
 import gatt
-import time
+from datetime import datetime
 import mac
 from UUIDmappings import ser_to_name, char_to_name
 
@@ -66,9 +66,11 @@ class AnyDevice(gatt.Device):
                                    "Char name unrecognised."))
 
     def register(self, val):
-        self.buff.append(str(val) + ", " + time.strftime("%H_%M_%S"))
+        self.buff.append(str(val) + ", "
+                         + datetime.now().strftime("%H:%M:%S.%f"))
         if len(self.buff) > self.BUFF_SIZE:
-            with open(time.strftime("%H_%M_%S") + ".csv", "w") as fh:
+            with open(datetime.now().strftime("%H:%M:%S.%f") + ".csv",
+                      "w") as fh:
                 fh.write("\n".join(self.buff))
             self.buff = []
 
