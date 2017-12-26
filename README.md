@@ -20,3 +20,14 @@ Notification handle = 0x0012 value: 16 3c 11 04
 Notification handle = 0x0012 value: 16 3c f5 03
 ...
 ```
+## Storing Data
+
+Use `scan_rec.py` to record datapoints to csv.
+
+Use `analysis.py` to plot these csvs.
+
+## Animated Plot
+
+Use `animated_plot.py` to get a live plot of heart rate data.
+
+![Animated Plot](animated_example.gif)
