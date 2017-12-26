@@ -60,6 +60,15 @@ class AnyDevice(gatt.Device):
                   char_to_name.get(characteristic.uuid[4:8],
                                    "Char name unrecognised."))
 
+    def characteristic_enable_notifications_succeeded(self, characteristic):
+        "Callback after subscribing to HR changes"
+        print("Successfully subscribed to HR")
+
+    def characteristic_enable_notifications_failed(self, characteristic,
+                                                   error):
+        "Callback after subscribing to HR changes"
+        print("Failed to subscribe to HR!")
+
 
 device = AnyDevice(mac_address=mac.address, manager=manager)
 device.connect()
