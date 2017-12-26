@@ -1,2 +1,3 @@
 mac.py
 __pycache__/
+*.csv
