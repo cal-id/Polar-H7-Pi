@@ -273,8 +273,6 @@ class AnyDevice(gatt.Device):
     _UUID_CHARACTER_BAT_LVL = '00002a19-0000-1000-8000-00805f9b34fb'
     _UUID_CHARACTER_HR_MEASURE = '00002a37-0000-1000-8000-00805f9b34fb'
 
-    # _UUID_RETURN_HR = '00002a37-0000-1000-8000-00805f9b34fb'
-
     def print_out_services(self):
         """Walks through all self.servies printing out the uuids and their
         names. Should only be called *after* services_resolved() has been
@@ -326,23 +324,3 @@ device = AnyDevice(mac_address=mac.address, manager=manager)
 device.connect()
 
 manager.run()
-#
-# data = b'\x16W\xa2\x02\xc7\x02'
-# data
-#
-# # FIRST BYTE
-# bin(data[0])
-# # hrFormat
-# data[0] & 0x01
-# # sensorContact
-# contactSupported = !((data[0] & 0x06) == 0)
-# sensorContact = ((data[0] & 0x06) >> 1) == 3 if contactSupported else True
-# sensorContact
-# energyExpended = (data[0] & 0x08) >> 3
-# energyExpended
-# hrPresent = (data[0] & 0x10) >> 4
-# hrPresent
-#
-# # SECOND BYTE
-# hrValue = ((data[1] + (data[2] << 8) if hrFormat == 1 else data[1]) &
-#            (0x0000FFFF if hrFormat == 1 else 0x000000FF))
