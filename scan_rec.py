@@ -69,7 +69,7 @@ class AnyDevice(gatt.Device):
         self.buff.append(str(val) + ", "
                          + datetime.now().strftime("%H:%M:%S.%f"))
         if len(self.buff) > self.BUFF_SIZE:
-            with open(datetime.now().strftime("%H:%M:%S.%f") + ".csv",
+            with open(datetime.now().strftime("%H-%H-%S.%f") + ".csv",
                       "w") as fh:
                 fh.write("\n".join(self.buff))
             self.buff = []
